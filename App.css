@@ -1,0 +1,41 @@
+.todo-card {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+}
+
+.todo-input {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.todo-input input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.todo-input button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #5c6bc0;
+  color: white;
+  cursor: pointer;
+}
+
+.no-task {
+  text-align: center;
+  color: #999;
+  margin: 10px 0;
+}
