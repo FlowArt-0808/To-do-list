@@ -1,84 +1,49 @@
+
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [todos, setTodos] = useState([]);
+  const [input, setInput] = useState("");
 
-  const todos = ["Do the dishes", "Walk the dog", "Learn React"];
-  const numbers = [1, 2, 3, 4, 5];
+  function add() {
+    if (input === "") return;
+    setTodos([...todos, input]);
+    setInput("");
+  }
 
-  function add() {}
-
-  function Delete() {}
-
-  function completed() {}
-
-  function clear() {}
-
-  function active() {}
-
-  function all() {}
-
-  // map
-  // filter
-  // reduce
-
-  // const newTodos = todos.map(function (todo) {
-  //   return "hi";
-  // });
-
-  // console.log(newTodos);
-
-  // const newNumbers = numbers.map(function (number) {
-  //   return number * 2;
-  // });
-  // console.log(newNumbers, numbers);
-
-  // const newFilteredNumbers = numbers.filter(function (number) {
-  //   return number % 2 === 0;
-  // });
-  // console.log(newFilteredNumbers, numbers);
-
-  // const sum = numbers.reduce(function (acc, cur) {
-  //   return acc + cur;
-  // }, 0);
-  // console.log(sum, numbers);
+  function remove(index) {
+    setTodos(todos.filter((_, i) => i !== index));
+  }
 
   return (
-    <>
-      <div
-        style={{ height: "500px", width: "500px", border: "1px solid black" }}
-      >
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          {todos.map(function (todo, index) {
-            return (
-              <div
-                key={index}
-                style={{ display: "flex", alignItems: "center", gap: "8px" }}
-              >
-                <input type="checkbox" />
-                <p
-                  style={{
-                    fontSize: "16px",
-                    color: index === 0 ? "red" : "green",
-                  }}
-                >
-                  {todo}
-                </p>
-              </div>
-            );
-          })}
-        </div>
-        <button onClick={all()}>All</button>
-        <button onCLick={active()}>Active</button>
-        <button onClick={completed()}>Completed</button>
-        <button onClick={add()}>Add</button>
-        <button onClick={Delete()}>Delete</button>
-        <button onClick={clear()}></button>
+    <div className="todo-card">
+      <h2>To-Do List</h2>
+
+      <div className="todo-input">
+        <input
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Add a new task..."
+        />
+        <button onClick={add}>Add</button>
       </div>
-    </>
+
+      <div>
+        {todos.length === 0 ? (
+          <p className="no-task">No tasks yet. Add one above!</p>
+        ) : (
+          todos.map((task, i) => (
+            <div className="todo-item">
+              <p className="todo-text">{task}</p>
+              <button className="delete" onClick={() => remove(i)}>
+                Delete
+              </button>
+            </div>
+          ))
+        )}
+      </div>
+    </div>
   );
 }
 
