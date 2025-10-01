@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import "./App.css";
 
@@ -30,18 +29,19 @@ function App() {
       </div>
 
       <div>
-        {todos.length === 0 ? (
+        {todos.length === 0 && (
           <p className="no-task">No tasks yet. Add one above!</p>
-        ) : (
+        )}
+
+        {todos.length > 0 &&
           todos.map((task, i) => (
-            <div className="todo-item">
+            <div className="todo-item" key={i}>
               <p className="todo-text">{task}</p>
               <button className="delete" onClick={() => remove(i)}>
                 Delete
               </button>
             </div>
-          ))
-        )}
+          ))}
       </div>
     </div>
   );
