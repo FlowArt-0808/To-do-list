@@ -33,6 +33,10 @@ function App() {
     setCompletedTodos(completedTodos.filter((_, i) => i !== index));
   }
 
+  function clear() {
+    setCompletedTodos([]);
+  }
+
   const showAll = filter === "all";
   const showActive = filter === "active";
   const showCompleted = filter === "completed";
@@ -73,62 +77,101 @@ function App() {
 
       <div>
         {showAll && (
-          <>
-            {activeTodos.length === 0 && completedTodos.length === 0 && (
+          <div className="todo-group all">
+            {activeTodos.length === 0 && completedTodos.length === 0 ? (
               <p className="no-task">No tasks yet. Add one above!</p>
+            ) : (
+              <>
+                {activeTodos.map((task, i) => (
+                  <div className="todo-item" key={i}>
+                    <input type="checkbox" onChange={() => complete(i)} />
+                    <p className="todo-text">{task}</p>
+                    <button
+                      className="delete"
+                      onClick={() => removeActive(i)}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                ))}
+
+                {completedTodos.map((task, i) => (
+                  <div
+                    className="todo-item done"
+                    key={i + activeTodos.length}
+                  >
+                    <input type="checkbox" checked onChange={() => undo(i)} />
+                    <p className="todo-text">{task}</p>
+                    <button
+                      className="delete"
+                      onClick={() => removeCompleted(i)}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                ))}
+              </>
             )}
-
-            {activeTodos.map((task, i) => (
-              <div className="todo-item" key={i}>
-                <input type="checkbox" onChange={() => complete(i)} />
-                <p className="todo-text">{task}</p>
-                <button className="delete" onClick={() => removeActive(i)}>
-                  Delete
-                </button>
-              </div>
-            ))}
-
-            {completedTodos.map((task, i) => (
-              <div className="todo-item done" key={i}>
-                <input type="checkbox" checked onChange={() => undo(i)} />
-                <p className="todo-text">{task}</p>
-                <button className="delete" onClick={() => removeCompleted(i)}>
-                  Delete
-                </button>
-              </div>
-            ))}
-          </>
+          </div>
         )}
 
-        {showActive &&
-          (activeTodos.length === 0 ? (
-            <p className="no-task">No active tasks</p>
-          ) : (
-            activeTodos.map((task, i) => (
-              <div className="todo-item" key={i}>
-                <input type="checkbox" onChange={() => complete(i)} />
-                <p className="todo-text">{task}</p>
-                <button className="delete" onClick={() => removeActive(i)}>
-                  Delete
-                </button>
-              </div>
-            ))
-          ))}
+        {showActive && (
+          <div className="todo-group active">
+            {activeTodos.length === 0 ? (
+              <p className="no-task">No active tasks</p>
+            ) : (
+              activeTodos.map((task, i) => (
+                <div className="todo-item" key={i}>
+                  <input type="checkbox" onChange={() => complete(i)} />
+                  <p className="todo-text">{task}</p>
+                  <button
+                    className="delete"
+                    onClick={() => removeActive(i)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              ))
+            )}
+          </div>
+        )}
 
-        {showCompleted &&
-          (completedTodos.length === 0 ? (
-            <p className="no-task">No completed tasks</p>
-          ) : (
-            completedTodos.map((task, i) => (
-              <div className="todo-item done" key={i}>
-                <input type="checkbox" checked onChange={() => undo(i)} />
-                <p className="todo-text">{task}</p>
-                <button className="delete" onClick={() => removeCompleted(i)}>
-                  Delete
-                </button>
-              </div>
-            ))
-          ))}
+        {showCompleted && (
+          <div className="todo-group completed">
+            {completedTodos.length === 0 ? (
+              <p className="no-task">No completed tasks</p>
+            ) : (
+              completedTodos.map((task, i) => (
+                <div className="todo-item done" key={i}>
+                  <input type="checkbox" checked onChange={() => undo(i)} />
+                  <p className="todo-text">{task}</p>
+                  <button
+                    className="delete"
+                    onClick={() => removeCompleted(i)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              ))
+            )}
+          </div>
+        )}
+      </div>
+
+      {(activeTodos.length > 0 || completedTodos.length > 0) && (
+        <div className="todo-footer">
+          <span>
+            {completedTodos.length} of{" "}
+            {activeTodos.length + completedTodos.length} tasks completed
+          </span>
+          <button className="clear" onClick={clear}>
+            Clear completed
+          </button>
+        </div>
+      )}
+
+      <div className="footer">
+        Powered by <a href="#">Pinecone Academy</a>
       </div>
     </div>
   );
