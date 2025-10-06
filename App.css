@@ -21,7 +21,7 @@ h2 {
   margin-bottom: 20px;
 }
 
-/* === Input Section === */
+
 .todo-input {
   display: flex;
   gap: 10px;
@@ -70,7 +70,7 @@ h2 {
   border-color: #007bff;
 }
 
-/* === Tasks === */
+
 .todo-item {
   display: flex;
   align-items: center;
@@ -120,7 +120,7 @@ h2 {
   background: #e68900;
 }
 
-/* === Info === */
+
 .no-task {
   text-align: center;
   color: #666;
@@ -137,7 +137,7 @@ h2 {
   margin-top: 10px;
 }
 
-/* === Footer === */
+
 .footer {
   text-align: center;
   margin-top: 15px;
